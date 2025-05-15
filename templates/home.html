@@ -1,0 +1,125 @@
+{%load static%}
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="https://bootswatch.com/5/brite/bootstrap.css">
+</head>
+
+<body>
+    <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+    <!-- NAVI BAR -->
+    <nav class="navbar navbar-expand-lg bg-success" data-bs-theme="light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Navbar</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01"
+                aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarColor01">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Home
+                            <span class="visually-hidden">(current)</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Features</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Pricing</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">About</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
+                            aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#">Action</a>
+                            <a class="dropdown-item" href="#">Another action</a>
+                            <a class="dropdown-item" href="#">Something else here</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Separated link</a>
+                        </div>
+                    </li>
+
+
+                </ul>
+                <a class="nav-link" href="#">Register</a>
+                &nbsp;&nbsp;
+                <a class="nav-link" href="#">Login</a>
+                &nbsp;&nbsp;
+                <form class="d-flex">
+                    <input class="form-control me-sm-2" type="search" placeholder="Search">
+                    <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+
+
+
+    <!-- WELCOME -->
+    <h1 style="flex-wrap:wrap;   display: flex; justify-content: center; ">Welcome To Our E-Commerce Site</h1>
+
+
+
+    <!-- PRODUCTS -->
+<div class="container mt-4">
+    <div class="row">
+      {% for i in "12345678910" %}
+        <div class="col-md-4 col-sm-6 mb-4">
+          <div class="card h-100">
+            <img src="{% static 'image.png'%}" class="card-img-top" alt="Product Image {{i}}">
+            <div class="card-body">
+              <h5 class="card-title">Product {{ forloop.counter }}</h5>
+              <p class="card-text">$ {{ forloop.counter }}9.99</p>
+              <a href="#" class="btn btn-primary">Buy Now</a>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+  
+  <!-- PAGE NUMBERS -->
+  <div style="
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background: #eee;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;"
+    class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+    
+    <ul class="pagination mb-0">
+      <li class="page-item disabled"><a class="page-link" href="#">&laquo;</a></li>
+      <li class="page-item active"><a class="page-link" href="#">1</a></li>
+      <li class="page-item"><a class="page-link" href="#">2</a></li>
+      <li class="page-item"><a class="page-link" href="#">3</a></li>
+      <li class="page-item"><a class="page-link" href="#">4</a></li>
+      <li class="page-item"><a class="page-link" href="#">5</a></li>
+      <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
+    </ul>
+  </div>
+
+
+    
+</body>
+
+</html>
