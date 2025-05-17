@@ -1,0 +1,91 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>{% block title %}E-Commerce{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'bootstrap.css' %}">
+    <!-- TEMPLATE LINK https://bootswatch.com/5/brite/bootstrap.css -->
+    <style>
+        body {
+          background: radial-gradient(circle at top left, rgba(173, 255, 47, 0.6), rgba(144, 238, 144, 0.5), rgba(34, 139, 34, 0.4));
+          backdrop-filter: blur(3px);
+          background-attachment: fixed;
+          background-size: cover;
+          min-height: 100vh;
+          overflow-x: hidden;
+        }
+      </style>
+</head>
+
+<body>
+    
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg bg-success" data-bs-theme="light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Navbar</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01"
+                aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarColor01">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/">Home <span class="visually-hidden">(current)</span></a>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="#">About</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
+                            aria-haspopup="true" aria-expanded="false">Extra</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#">Action</a>
+                            <a class="dropdown-item" href="#">Another action</a>
+                            <a class="dropdown-item" href="#">Something else here</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Separated link</a>
+                        </div>
+                    </li>
+                </ul>
+                <a class="nav-link" href="/users/register">Register</a>
+                &nbsp;&nbsp;
+                <a class="nav-link" href="/users/login">Login</a>
+                &nbsp;&nbsp;
+                <form class="d-flex">
+                    <input class="form-control me-sm-2" type="search" placeholder="Search">
+                    <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    <div class="container mt-4">
+        {% block content %}{% endblock %}
+    
+        <div class="d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+            {% block centered_content %}{% endblock %}
+        </div>
+    </div>
+
+    <!-- Bootstrap JS + Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
+</body>
+
+<!-- FOOTER -->
+<footer class="bg-dark text-white mt-5 py-3">
+    <div class="container text-center">
+        <p class="mb-1">© 2025 E-Commerce Site</p>
+        <p>Omer Cakir</p>
+        <p class="mb-0">
+            <a href="https://github.com/omercakir2/" class="text-light me-3">GitHub💻</a>
+            <a href="#" class="text-light me-3">Privacy</a>
+            <a href="#" class="text-light">Terms</a><br>
+        </p>
+    </div>
+</footer>
+
+</html>

@@ -1,0 +1,10 @@
+*
+!*/
+!*.py
+!*.html
+!.gitignore
+db.sqlite3
+settings.py
+*SECRET
+*.png
+*jpg
