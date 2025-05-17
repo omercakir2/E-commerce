@@ -3,6 +3,8 @@
 !*.py
 !*.html
 !.gitignore
+!*.png
+!*.jpg
 db.sqlite3
 settings.py
 *SECRET
