@@ -7,4 +7,5 @@
 !*.jpg
 db.sqlite3
 settings.py
+venv
 *SECRET

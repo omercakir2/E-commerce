@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from .forms import CustomUserCreationForm
 from django.contrib import messages
+from .models import CustomUser
 
 def register_view(request):
     if request.method == 'POST':
@@ -9,7 +10,7 @@ def register_view(request):
             form.save()
             print("SUCCESS!")
             messages.success(request, 'Registered Succesfully!')
-            return redirect('register')  # login sayfası varsa
+            return redirect('register') 
         else:
             print("FORM HATALI:", form.errors)
     else:
@@ -18,4 +19,9 @@ def register_view(request):
 def login_view(request):
     # return render(request,'users/login.html')
     return render(request,'TODO.html')
+
+def display_users_view(request):
+    users = CustomUser.objects.all()
+    return render(request,'users/display_users.html',{'users': users})
+    
 
