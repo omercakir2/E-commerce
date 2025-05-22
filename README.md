@@ -79,7 +79,7 @@ Then open your browser:
 
 ## 📸 Screenshots (coming soon)
 
-I’ll add screenshots of the UI and admin panel here as development continues.
+![v1.0.0](sample_pngs/v1.0.0/homepage.png)
 
 ---
 
