@@ -10,18 +10,18 @@
     <!-- TEMPLATE LINK https://bootswatch.com/5/brite/bootstrap.css -->
     <style>
         body {
-          background: radial-gradient(circle at top left, rgba(173, 255, 47, 0.6), rgba(144, 238, 144, 0.5), rgba(34, 139, 34, 0.4));
-          backdrop-filter: blur(3px);
-          background-attachment: fixed;
-          background-size: cover;
-          min-height: 100vh;
-          overflow-x: hidden;
+            background: radial-gradient(circle at top left, rgba(173, 255, 47, 0.6), rgba(144, 238, 144, 0.5), rgba(34, 139, 34, 0.4));
+            backdrop-filter: blur(3px);
+            background-attachment: fixed;
+            background-size: cover;
+            min-height: 100vh;
+            overflow-x: hidden;
         }
-      </style>
+    </style>
 </head>
 
 <body>
-    
+
 
     <!-- NAVBAR -->
     <nav class="navbar navbar-expand-lg bg-success" data-bs-theme="light">
@@ -49,10 +49,18 @@
                         </div>
                     </li>
                 </ul>
+                {% if request.user.is_authenticated%}
+                <a class="nav-link" href="#">My profile</a>
+                &nbsp;&nbsp;
+                <a class="nav-link" href="/users/logout">Logout</a>
+                &nbsp;&nbsp;
+                {% else %}
                 <a class="nav-link" href="/users/register">Register</a>
                 &nbsp;&nbsp;
                 <a class="nav-link" href="/users/login">Login</a>
                 &nbsp;&nbsp;
+                {% endif %}
+
                 <form class="d-flex">
                     <input class="form-control me-sm-2" type="search" placeholder="Search">
                     <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
@@ -63,8 +71,31 @@
 
     <!-- MAIN CONTENT -->
     <div class="container mt-4">
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% if form.errors %}
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <ul class="mb-0">
+                {% for field in form %}
+                {% for error in field.errors %}
+                <li><strong>{{ field.label }}:</strong> {{ error }}</li>
+                {% endfor %}
+                {% endfor %}
+                {% for error in form.non_field_errors %}
+                <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endif %}
         {% block content %}{% endblock %}
-    
+
         <div class="d-flex justify-content-center align-items-center" style="min-height: 80vh;">
             {% block centered_content %}{% endblock %}
         </div>

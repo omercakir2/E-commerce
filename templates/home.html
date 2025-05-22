@@ -9,7 +9,9 @@
 
 
 <h1 style="flex-wrap:wrap; display: flex; justify-content: center;">Welcome To Our E-Commerce Site</h1>
-
+{% if request.user.is_authenticated %}
+    <p>Hi {{request.user.email}}</p>
+{% endif %}
 <!-- PRODUCTS -->
 <div class="container mt-4">
     <div class="row">

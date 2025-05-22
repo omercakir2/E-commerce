@@ -18,7 +18,7 @@ def add_pro_view(request):
                 image=image
             )
             messages.success(request, 'Product added successfully!')
-            return redirect('add_pro_view')
+            return redirect('add_pro')
         else:
             messages.error(request, 'Please fill in all required fields.')
 
