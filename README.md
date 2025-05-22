@@ -21,7 +21,12 @@ This is a solo learning project where I’m developing a fully functional online
 ```
 myproject/
 ├── ecommerce/           # Django project folder
-├── users/            # Custom user app
+│   ├── settings.py
+│   ├── urls.py
+├── accounts/            # Custom user app
+│   ├── models.py
+│   ├── forms.py
+│   ├── views.py
 ├── products/            # Product app
 ├── templates/           # HTML templates
 ├── static/              # Static files (CSS/JS)
@@ -77,20 +82,27 @@ Then open your browser:
 
 ---
 
-## 📸 Screenshots (coming soon)
+## 📸 Screenshots
 
-![v1.0.0](sample_pngs/v1.0.0/homepage.png)
+### 📁 Version v1.0.0
 
----
+![homepage](sample_pngs/v1.0.0/homepage.png)
 
-## 🤝 Contributing
+### 📁 Version v1.0.1
 
-This project is for personal learning, but if you want to give feedback or ideas, feel free to open an issue or send a message.
+![homepage](sample_pngs/v1.0.1/homepage.png)
 
----
+![register](sample_pngs/v1.0.1/register.png)
 
-## 👤 Author
+### 📁 Version v1.0.2
 
-**Ömer**  
-Learning Django, building real-world apps, and having fun with code.  
-GitHub: [yourusername](https://github.com/yourusername)
+![add](sample_pngs/v1.0.2/add.png)
+
+![listing](sample_pngs/v1.0.2/listing.png)
+
+### 📁 Version v1.0.3
+
+![home](sample_pngs/v1.0.3/home.png)
+
+![login](sample_pngs/v1.0.3/login.png)
+
