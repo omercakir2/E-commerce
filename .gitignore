@@ -9,3 +9,4 @@ db.sqlite3
 settings.py
 venv
 *SECRET
+users/migrations/0002_customuser_profile_image.py

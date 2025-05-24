@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from .models import Product
+from django.db.models import Q
 
 def add_pro_view(request):
     if request.method == 'POST':
@@ -27,5 +28,10 @@ def add_pro_view(request):
 def remove_pro_view(request):#remove a product from DB
     return render(request,'TODO.html')
 def list_pro_view(request):#listing products from DB
-    products = Product.objects.all()
-    return render(request,'products/list_product.html',{'products':products})
+    query = request.GET.get('q','')
+    if query:
+        products = Product.objects.filter(Q(name__icontains=query)|Q(description__icontains=query))
+    else:
+        products = Product.objects.all()
+    
+    return render(request,'products/list_product.html',{'products':products,'query':query})

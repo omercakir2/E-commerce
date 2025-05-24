@@ -9,7 +9,18 @@
 
 
 <h1 style="flex-wrap:wrap; display: flex; justify-content: center;">Welcome To Our E-Commerce Site</h1>
-
+<div class="d-flex justify-content-end mb-3">
+  <form class="d-flex" method="GET" action="{% url 'list_pro' %}" style="max-width: 300px;">
+    <input class="form-control me-2" name="q" type="search" placeholder="Search" value="{{ query }}">
+    <button class="btn btn-secondary" type="submit">Search</button>
+  </form>
+</div>
+{% if query %}
+<a href="{% url 'list_pro' %}" class="btn btn-secondary mb-3">
+  Show All Products
+</a>
+<h4>Results including the "{{query}}"</h4>
+{% endif %}
 <!-- PRODUCTS -->
 <div class="container mt-4">
     <div class="row">

@@ -106,3 +106,9 @@ Then open your browser:
 
 ![login](sample_pngs/v1.0.3/login.png)
 
+### 📁 Version v1.0.4
+
+![profile](sample_pngs/v1.0.4/profile.png)
+
+![search](sample_pngs/v1.0.4/search.png)
+

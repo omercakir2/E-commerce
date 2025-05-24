@@ -1,8 +1,10 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .forms import CustomUserCreationForm , EmailLoginForm
 from django.contrib import messages
 from .models import CustomUser
 from django.contrib.auth import login,logout
+from django.db.models import Q
+
 
 def register_view(request):
     if request.method == 'POST':
@@ -11,7 +13,7 @@ def register_view(request):
             form.save()
             print("SUCCESS!")
             messages.success(request, 'Registered Succesfully!')
-            return redirect('register') 
+            return redirect('login') 
         else:
             print("FORM HATALI:", form.errors)
     else:
@@ -37,7 +39,15 @@ def logout_view(request):
     return redirect('/')
 
 def display_users_view(request):
-    users = CustomUser.objects.all()
-    return render(request,'users/display_users.html',{'users': users})
+    query = request.GET.get('q', '')
+    if query:
+        users = CustomUser.objects.filter(Q(email__icontains=query))
+    else:
+        users = CustomUser.objects.all()
+
+    return render(request, 'users/display_users.html', {'users': users, 'query': query})
     
 
+def user_detail_by_email(request,user_mail):
+    user = get_object_or_404(CustomUser,email=user_mail)
+    return render(request,'users/profile.html',{'user':user})
