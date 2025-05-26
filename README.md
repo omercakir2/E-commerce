@@ -120,3 +120,15 @@ Then open your browser:
 
 ![mail](sample_pngs/v1.0.5/mail.png)
 
+### 📁 Version v1.0.6
+
+![forgotpassword](sample_pngs/v1.0.6/forgotpassword.png)
+
+![home](sample_pngs/v1.0.6/home.png)
+
+![loginpage](sample_pngs/v1.0.6/loginpage.png)
+
+![mail](sample_pngs/v1.0.6/mail.png)
+
+![passwordreset](sample_pngs/v1.0.6/passwordreset.png)
+
