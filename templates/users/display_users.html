@@ -5,7 +5,11 @@
 Users
 {% endblock title %}
 
-{% block content %}
+{% block left %}
+Here is the left block
+{% endblock left %}
+
+{% block center %}
 <div class="d-flex justify-content-end mb-3">
   <form class="d-flex" method="GET" action="{% url 'display' %}" style="max-width: 300px;">
     <input class="form-control me-2" name="q" type="search" placeholder="Search" value="{{ query }}">
@@ -18,28 +22,34 @@ Users
 </a>
 <h4>Results including the "{{query}}"</h4>
 {% endif %}
-<table class="table table-hover table-striped table-bordered">
-  <thead>
-    <tr>
-      <th scope="col">ID</th>
-      <th scope="col">E-mail</th>
-      <th scope="col">Gender</th>
-      <th scope="col">Last Login</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for user in users %}
-    <tr class="table-active" onclick="window.location.href='/users/{{ user.email }}'" style="cursor: pointer;">
-      <th scope="row">{{ user.id }}</th>
-      <td>{{ user.email }}</td>
-      <td>{{ user.gender }}</td>
-      <td>{{ user.last_login }}</td>
-    </tr>
-    {% empty %}
-    <tr>
-      <td colspan="4">No users found.</td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
-{% endblock content %}
+<div class="table-responsive">
+
+  <table class="table table-hover table-striped table-bordered">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">E-mail</th>
+        <th scope="col">Gender</th>
+        <th scope="col">Last Login</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for user in users %}
+      <tr class="table-active" onclick="window.location.href='/users/{{ user.email }}'" style="cursor: pointer;">
+        <th scope="row">{{ user.id }}</th>
+        <td>{{ user.email }}</td>
+        <td>{{ user.gender }}</td>
+        <td>{{ user.last_login }}</td>
+      </tr>
+      {% empty %}
+      <tr>
+        <td colspan="4">No users found.</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock center %}
+{% block right %}
+Here is the right block
+{% endblock right %}

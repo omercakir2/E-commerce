@@ -7,6 +7,15 @@ from django.contrib.auth import login,logout
 from django.db.models import Q
 from .utils import send_verification_email,generate_code
 from django.http import HttpResponse
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.contrib.auth.tokens import default_token_generator
+from django.contrib.auth.hashers import make_password ,check_password
+from django.utils.encoding import force_bytes
+from django.conf import settings
+from django.core.mail import send_mail
+from django.template.loader import render_to_string
+from django.urls import reverse
+
 
 
     
@@ -96,3 +105,62 @@ def display_users_view(request):
 def user_detail_by_email(request,user_mail):
     user = get_object_or_404(CustomUser,email=user_mail)
     return render(request,'users/profile.html',{'user':user})
+
+def custom_password_reset_request(request):
+    if request.method == "POST":
+        email = request.POST.get("email")
+        try:
+            user = CustomUser.objects.get(email=email)
+        except CustomUser.DoesNotExist:
+            return render(request, "custom_password_reset_request.html", {"error": "No user with that email."})
+
+        token = default_token_generator.make_token(user)
+        uid = urlsafe_base64_encode(force_bytes(user.pk))
+        reset_url = request.build_absolute_uri(reverse("custom_password_reset_confirm", kwargs={"uidb64": uid, "token": token})
+)
+
+        subject = "Reset your password"
+        message = render_to_string("users/password_reset_email.html", {
+            "user": user,
+            "reset_url": reset_url,
+        })
+        send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, [user.email])
+
+        return redirect("password_reset_done")
+
+    return render(request, "users/custom_password_reset_request.html")
+
+def custom_password_reset_confirm(request, uidb64, token):
+    try:
+        uid = urlsafe_base64_decode(uidb64).decode()
+        user = CustomUser.objects.get(pk=uid)
+    except (CustomUser.DoesNotExist, ValueError, TypeError, OverflowError):
+        user = None
+
+    if user is not None and default_token_generator.check_token(user, token):
+        if request.method == "POST":
+            password1 = request.POST.get("password1")
+            password2 = request.POST.get("password2")
+            if password1 and password1 == password2:
+                if check_password(password1, user.password):
+                    return render(request, "users/custom_password_reset_confirm.html", {
+                        "error": "New password cannot be the same as the old one.",
+                        "validlink": True
+                    })
+                user.password = make_password(password1)
+                user.save()
+                return redirect("password_reset_complete")
+            else:
+                return render(request, "users/custom_password_reset_confirm.html", {"error": "Passwords don't match"})
+
+        return render(request, "users/custom_password_reset_confirm.html", {"validlink": True})
+
+    return render(request, "users/custom_password_reset_confirm.html", {"validlink": False})
+
+def password_reset_done(request):
+    messages.info(request, "If an account with that email exists, a password reset link has been sent.")
+    return render(request, "users/password_reset_done.html")
+
+def password_reset_complete(request):
+    messages.success(request, "Your password has been successfully reset. You can now log in.")
+    return render(request, "users/password_reset_complete.html")

@@ -6,42 +6,57 @@ Register
 {% endblock %}
 
 
-{% block centered_content %}
+{% block left %}
+This is the left panel
+{% endblock left %}
 
-<div class="card p-4 shadow" style="width: 100%; max-width: 400px;">
- 
-  <h2 class="text-center mb-4">Register</h2>
-  <form method="POST">
-    {% csrf_token %}
+{% block center %}
+<div class="d-flex justify-content-center align-items-center" style="width: 100%; height: 100%;">
 
-    <div class="mb-3">
-      <label for="email" class="form-label">Email address</label>
-      <input type="email" name="email" class="form-control" id="email" placeholder="Enter email">
-      <small class="form-text text-muted">We'll never share your email.</small>
-    </div>
+  <div class="card p-4 shadow" style="width: 100%; max-width: 1200px;">
 
-    <div class="mb-3">
-      <label for="password1" class="form-label">Password</label>
-      <input type="password" name="password1" class="form-control" id="password1" placeholder="Password">
-    </div>
+    <h2 class="text-center mb-4">Register</h2>
+    <form method="POST">
+      {% csrf_token %}
 
-    <div class="mb-3">
-      <label for="password2" class="form-label">Password Again</label>
-      <input type="password" name="password2" class="form-control" id="password2" placeholder="Password">
-    </div>
+      <div class="mb-3">
+        <label for="email" class="form-label">Email address</label>
+        <input type="email" name="email" class="form-control" id="email" placeholder="Enter email">
+        <small class="form-text text-muted">We'll never share your email.</small>
+      </div>
 
-    <div class="mb-3">
-      <label for="gender" class="form-label">Select Gender</label>
-      <select name="gender" class="form-select" id="gender">
-        <option value="M">Men</option>
-        <option value="F">Women</option>
-      </select>
-    </div>
+      <div class="mb-3">
+        <label for="password1" class="form-label">Password</label>
+        <input type="password" name="password1" class="form-control" id="password1" placeholder="Password">
+      </div>
 
-    <button type="submit" class="btn btn-primary w-100">Submit</button>
-    <a href="/users/login">Login if you have an account</a>
-  </form>
-  
+      <div class="mb-3">
+        <label for="password2" class="form-label">Password Again</label>
+        <input type="password" name="password2" class="form-control" id="password2" placeholder="Password">
+      </div>
+
+      <div class="mb-3">
+        <label for="gender" class="form-label">Select Gender</label>
+        <select name="gender" class="form-select" id="gender">
+          <option value="M">Men</option>
+          <option value="F">Women</option>
+        </select>
+      </div>
+
+      <button type="submit" class="btn btn-primary w-100">Submit</button>
+      <a href="/users/login">Login if you have an account</a>
+    </form>
+  </div>
+
 </div>
 
 {% endblock %}
+
+{% block right %}
+<div class="alert alert-info shadow-sm rounded-4 px-4 py-3">
+  <h5 class="mb-2">📝 Why We Ask for Some Info</h5>
+  <p>We collect your email, password, and gender information to create a secure and personalized profile for you. Gender
+    helps us tailor your homepage, offers, and recommendations.</p>
+  <p class="mb-0">All your information is kept private and encrypted in our system.</p>
+</div>
+{% endblock right %}

@@ -3,7 +3,12 @@
 
 {% block title %}Profile{% endblock %}
 
-{% block content %}
+
+{% block left %}
+    Here is the left block
+{% endblock left %}
+
+{% block center %}
 <div class="container py-5">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -43,3 +48,7 @@
     </div>
 </div>
 {% endblock %}
+
+{% block right %}
+    Here is the right block
+{% endblock right %}
