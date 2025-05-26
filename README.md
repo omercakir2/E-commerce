@@ -112,3 +112,11 @@ Then open your browser:
 
 ![search](sample_pngs/v1.0.4/search.png)
 
+### 📁 Version v1.0.5
+
+![2fa](sample_pngs/v1.0.5/2fa.png)
+
+![home](sample_pngs/v1.0.5/home.png)
+
+![mail](sample_pngs/v1.0.5/mail.png)
+
