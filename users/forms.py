@@ -3,13 +3,22 @@ from django.contrib.auth.forms import UserCreationForm
 from .models import CustomUser
 from django import forms
 from django.contrib.auth import authenticate
+from django.utils.safestring import mark_safe
+
 
 class CustomUserCreationForm(UserCreationForm):
     class Meta:
         model = CustomUser
         fields = ['email', 'password1', 'password2', 'gender']
-        # help_texts = {'email': 'We will never share your email.','gender':'You must choose one'}
-        
+        # help_texts = {'email': 'We will never share your email.', 'gender': 'You must choose one'}
+
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        if CustomUser.objects.filter(email=email).exists():
+            raise forms.ValidationError(
+                mark_safe('This email is already registered. <a href="/users/login/">Wanna login?</a>')
+            )
+        return email
 class EmailLoginForm(forms.Form):
     email = forms.EmailField()
     password = forms.CharField(widget=forms.PasswordInput)
