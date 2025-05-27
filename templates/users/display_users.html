@@ -31,6 +31,7 @@ Here is the left block
         <th scope="col">E-mail</th>
         <th scope="col">Gender</th>
         <th scope="col">Last Login</th>
+        <th scope="col">Is_Active</th>
       </tr>
     </thead>
     <tbody>
@@ -40,6 +41,7 @@ Here is the left block
         <td>{{ user.email }}</td>
         <td>{{ user.gender }}</td>
         <td>{{ user.last_login }}</td>
+        <td>{{ user.is_active}}</td>
       </tr>
       {% empty %}
       <tr>

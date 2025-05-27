@@ -6,7 +6,6 @@ from .models import CustomUser
 from django.contrib.auth import login,logout
 from django.db.models import Q
 from .utils import send_verification_email,generate_code
-from django.http import HttpResponse
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.auth.hashers import make_password ,check_password

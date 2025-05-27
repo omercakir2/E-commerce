@@ -5,6 +5,7 @@
 <head>
     <meta charset="utf-8">
     <title>{% block title %}E-Commerce{% endblock %}</title>
+    <!-- <meta http-equiv="refresh" content="5"> refresh every 5 second -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="{% static 'bootstrap.css' %}">
     <style>
@@ -26,7 +27,9 @@
             padding: 20px;
         }
 
-        .left-panel, .center-panel, .right-panel {
+        .left-panel,
+        .center-panel,
+        .right-panel {
             background-color: rgba(255, 255, 255, 0.3);
             padding: 20px;
             border-radius: 12px;
@@ -38,7 +41,6 @@
                 grid-template-columns: 1fr;
             }
         }
-        
     </style>
 </head>
 
@@ -54,7 +56,9 @@
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item"><a class="nav-link active" href="/">Home</a></li>
                     <li class="nav-item"><a class="nav-link" href="/users/display">Users</a></li>
+                    {% if request.user.is_authenticated %}
                     <li class="nav-item dropdown">
+
                         <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
                             aria-haspopup="true" aria-expanded="false">Products</a>
                         <div class="dropdown-menu">
@@ -64,16 +68,30 @@
 
                         </div>
                     </li>
+
+                    {% endif %}
+
+
+
                 </ul>
                 {% if request.user.is_authenticated %}
-                <button type="button" class="btn btn-light"><a class="nav-link" href="/users/{{ user.email }}">My profile</a></button>
+                <div class="alert alert-danger " id="session-timer"
+                    style="display: none; color: white; margin-left: auto;">
+                    ⏳ <strong>Session ends in <span id="time-left"></span></strong>
+                </div>
                 &nbsp;&nbsp;
-                <button type="button" class="btn btn-danger"> <a class="nav-link" href="/users/logout">Logout</a></button>
+                <button type="button" class="btn btn-light"><a class="nav-link" href="/users/{{ user.email }}">My
+                        profile</a></button>
+                &nbsp;&nbsp;
+                <button type="button" class="btn btn-danger"> <a class="nav-link"
+                        href="/users/logout">Logout</a></button>
                 &nbsp;&nbsp;
                 {% else %}
-                <button type="button" class="btn btn-light"> <a class="nav-link" href="/users/register">Register</a></button>
+                <button type="button" class="btn btn-light"> <a class="nav-link"
+                        href="/users/register">Register</a></button>
                 &nbsp;&nbsp;
-                <button type="button" class="btn btn-secondary"> <a class="nav-link" href="/users/login">Login</a></button>
+                <button type="button" class="btn btn-secondary"> <a class="nav-link"
+                        href="/users/login">Login</a></button>
                 &nbsp;&nbsp;
                 {% endif %}
             </div>
@@ -81,6 +99,7 @@
     </nav>
 
     <div class="container mt-4">
+
         {% if messages %}
         {% for message in messages %}
         <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
@@ -121,6 +140,45 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
+    <script>
+        // Set total session duration (same as SESSION_COOKIE_AGE)
+        const sessionDuration = 600; // seconds = 1 minute for testing
+        let remaining = sessionDuration;
+
+        // Count down every second
+        const timer = setInterval(() => {
+            remaining--;
+
+            // If under 60 seconds, show the timer
+            if (remaining <= 90 && remaining > 0) {
+                const timerBox = document.getElementById('session-timer');
+                const timeText = document.getElementById('time-left');
+
+                if (timerBox && timeText) {
+                    timerBox.style.display = 'inline';
+                    const minutes = Math.floor(remaining / 60);
+                    const seconds = remaining % 60;
+                    timeText.innerText = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+                }
+            }
+
+            // If time's up, redirect to logout
+            if (remaining <= 0) {
+                clearInterval(timer);
+                window.location.href = "{% url 'logout' %}"; // adjust if needed
+            }
+        }, 1000);
+
+        // Reset timer on user activity
+        ['mousemove', 'keydown', 'click'].forEach(evt => {
+            document.addEventListener(evt, () => {
+                remaining = sessionDuration;
+                const timerBox = document.getElementById('session-timer');
+                if (timerBox) timerBox.style.display = 'none';
+            });
+        });
+    </script>
+
 </body>
 
 <footer class="bg-dark text-white mt-5 py-3">

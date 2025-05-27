@@ -2,13 +2,14 @@
 {% load static %}
 
 {% block title %}
-  Home Page
+Home Page
 {% endblock %}
 
 {% block center %}
 
 
-<h1 style="flex-wrap:wrap; display: flex; justify-content: center;">Welcome To Our E-Commerce Site</h1>
+<h1 style="flex-wrap:wrap; display: flex; justify-content: center;">See your products</h1>
+<h6 style="flex-wrap:wrap; display: flex; justify-content: center;">Products from : {{ request.user }}</h1>
 <div class="d-flex justify-content-end mb-3">
   <form class="d-flex" method="GET" action="{% url 'list_pro' %}" style="max-width: 300px;">
     <input class="form-control me-2" name="q" type="search" placeholder="Search" value="{{ query }}">
@@ -23,44 +24,45 @@
 {% endif %}
 <!-- PRODUCTS -->
 <div class="container mt-4">
-    <div class="row">
-        {% for product in products %}
-<div class="col-md-4 col-sm-6 mb-4">
-  <div class="card h-100" style="
+  <div class="row">
+    {% for product in products %}
+    <div class="col-md-4 col-sm-6 mb-4">
+      <div class="card h-100" style="
     background: rgba(255, 255, 255, 0.2);
     backdrop-filter: blur(10px);
     border-radius: 20px;
     border: 1px solid rgba(255, 255, 255, 0.2);
   ">
-    {% if product.image %}
-      <img src="{{ product.image.url }}" class="card-img-top" style="height: 300px; object-fit: contain;">
-    {% else %}
-      <img src="{% static 'image.jpg' %}" class="card-img-top" style="height: 300px; object-fit: contain;">
-    {% endif %}
+        {% if product.image %}
+        <img src="{{ product.image.url }}" class="card-img-top" style="height: 300px; object-fit: contain;">
+        {% else %}
+        <img src="{% static 'image.jpg' %}" class="card-img-top" style="height: 300px; object-fit: contain;">
+        {% endif %}
 
-    <div class="card-body">
-      <h4 class="card-title">{{ product.name }}</h4>
-      <p class="card-text" style="font-size: 1.2rem;">$ {{ product.price }}</p>
-      <p class="card-text">{{ product.description|truncatewords:20 }}</p>
-      <a href="#" class="btn btn-lg btn-primary">Buy Now</a>
+        <div class="card-body">
+          <h4 class="card-title">{{ product.name }}</h4>
+          <p class="card-title">Seller : <a href="/users/{{ product.user }}">{{ product.user }}</a> </p>
+          <p class="card-text" style="font-size: 1.2rem;">$ {{ product.price }}</p>
+          <p class="card-text">{{ product.description|truncatewords:20 }}</p>
+          <a href="#" class="btn btn-lg btn-primary">Buy Now</a>
+        </div>
+      </div>
     </div>
+    {% endfor %}
   </div>
-</div>
-{% endfor %}
-    </div>
 </div>
 
 <!-- PAGE NUMBERS -->
 <div class="d-flex justify-content-center my-4">
-    <ul class="pagination mb-0">
-        <li class="page-item disabled"><a class="page-link" href="#">&laquo;</a></li>
-        <li class="page-item active"><a class="page-link" href="#">1</a></li>
-        <li class="page-item"><a class="page-link" href="#">2</a></li>
-        <li class="page-item"><a class="page-link" href="#">3</a></li>
-        <li class="page-item"><a class="page-link" href="#">4</a></li>
-        <li class="page-item"><a class="page-link" href="#">5</a></li>
-        <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
-    </ul>
+  <ul class="pagination mb-0">
+    <li class="page-item disabled"><a class="page-link" href="#">&laquo;</a></li>
+    <li class="page-item active"><a class="page-link" href="#">1</a></li>
+    <li class="page-item"><a class="page-link" href="#">2</a></li>
+    <li class="page-item"><a class="page-link" href="#">3</a></li>
+    <li class="page-item"><a class="page-link" href="#">4</a></li>
+    <li class="page-item"><a class="page-link" href="#">5</a></li>
+    <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
+  </ul>
 </div>
 
 {% endblock %}
