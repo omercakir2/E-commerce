@@ -132,3 +132,7 @@ Then open your browser:
 
 ![passwordreset](sample_pngs/v1.0.6/passwordreset.png)
 
+### 📁 Version v1.0.7
+
+![home](sample_pngs/v1.0.7/home.png)
+
