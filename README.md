@@ -136,3 +136,9 @@ Then open your browser:
 
 ![home](sample_pngs/v1.0.7/home.png)
 
+### 📁 Version v1.0.8
+
+![detail](sample_pngs/v1.0.8/detail.png)
+
+![remove](sample_pngs/v1.0.8/remove.png)
+

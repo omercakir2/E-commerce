@@ -1,27 +1,32 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib import messages
-from .models import Product
+from .models import Product , ProductImage
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 
 
-@login_required(login_url='login')  # change 'login' if your URL name is different
+@login_required(login_url='login')
 def add_pro_view(request):
     if request.method == 'POST':
         name = request.POST.get('name')
         price = request.POST.get('price')
         description = request.POST.get('description')
-        image = request.FILES.get('image')
+        images = request.FILES.getlist('images')  # Çoklu dosya
 
         if name and price:
-            Product.objects.create(
+            product = Product.objects.create(
                 name=name,
                 price=price,
                 description=description,
-                image=image,
-                user=request.user  # ✅ Link the product to the logged-in user
+                user=request.user
             )
-            messages.success(request, 'Product added successfully!')
+
+            for i, image in enumerate(images):
+                if i >= 5:  # En fazla 5 resim
+                    break
+                ProductImage.objects.create(product=product, image=image)
+
+            messages.success(request, 'Product added successfully with images!')
             return redirect('add_pro')
         else:
             messages.error(request, 'Please fill in all required fields.')

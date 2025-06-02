@@ -36,11 +36,33 @@
             border-radius: 20px;
             border: 1px solid rgba(255, 255, 255, 0.2);
           ">
-        {% if product.image %}
-        <img src="{{ product.image.url }}" class="card-img-top" style="height: 300px; object-fit: contain;">
-        {% else %}
-        <img src="{% static 'image.jpg' %}" class="card-img-top" style="height: 300px; object-fit: contain;">
-        {% endif %}
+        <!-- Çoklu ürün fotoğrafı göstermek için evrensel carousel -->
+        <div id="carousel{{ product.pk }}" class="carousel slide" data-bs-ride="carousel">
+          <div class="carousel-inner">
+            {% for img in product.images.all %}
+            <div class="carousel-item {% if forloop.first %}active{% endif %}">
+              <img src="{{ img.image.url }}" class="d-block w-100" style="height: 300px; object-fit: contain;">
+            </div>
+            {% empty %}
+            <div class="carousel-item active">
+              <img src="{% static 'image.jpg' %}" class="d-block w-100" style="height: 300px; object-fit: contain;">
+            </div>
+            {% endfor %}
+          </div>
+
+          {% if product.images.count > 1 %}
+          <button class="carousel-control-prev" type="button" data-bs-target="#carousel{{ product.pk }}"
+            data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#carousel{{ product.pk }}"
+            data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+          {% endif %}
+        </div>
         <div class="card-body">
           <h4 class="card-title">{{ product.name }}</h4>
           <p class="card-title">Seller : <a href="/users/{{ product.user }}">{{ product.user }}</a> </p>

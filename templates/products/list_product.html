@@ -7,66 +7,91 @@ Home Page
 
 {% block center %}
 
+<h1 class="text-center">See your products</h1>
+<h6 class="text-center">Products from : {{ request.user }}</h6>
 
-<h1 style="flex-wrap:wrap; display: flex; justify-content: center;">See your products</h1>
-<h6 style="flex-wrap:wrap; display: flex; justify-content: center;">Products from : {{ request.user }}</h1>
-  <div class="d-flex justify-content-end mb-3">
-    <form class="d-flex" method="GET" action="{% url 'list_pro' %}" style="max-width: 300px;">
-      <input class="form-control me-2" name="q" type="search" placeholder="Search" value="{{ query }}">
-      <button class="btn btn-secondary" type="submit">Search</button>
-    </form>
-  </div>
-  {% if query %}
-  <a href="{% url 'list_pro' %}" class="btn btn-secondary mb-3">
-    Show All Products
-  </a>
-  <h4>Results including the "{{query}}"</h4>
-  {% endif %}
-  <!-- PRODUCTS -->
-  <div class="container mt-4">
-    <div class="row">
-      {% for product in products %}
-      <div class="col-md-4 col-sm-6 mb-4">
-        <div class="card h-100" style="
-    background: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(10px);
-    border-radius: 20px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-  ">
-          {% if product.image %}
-          <img src="{{ product.image.url }}" class="card-img-top" style="height: 300px; object-fit: contain;">
-          {% else %}
-          <img src="{% static 'image.jpg' %}" class="card-img-top" style="height: 300px; object-fit: contain;">
-          {% endif %}
+<div class="d-flex justify-content-end mb-3">
+  <form class="d-flex" method="GET" action="{% url 'list_pro' %}" style="max-width: 300px;">
+    <input class="form-control me-2" name="q" type="search" placeholder="Search" value="{{ query }}">
+    <button class="btn btn-secondary" type="submit">Search</button>
+  </form>
+</div>
 
-          <div class="card-body">
-            <h4 class="card-title">{{ product.name }}</h4>
-            <p class="card-title">Seller : <a href="/users/{{ product.user }}">{{ product.user }}</a> </p>
-            <p class="card-text" style="font-size: 1.2rem;">$ {{ product.price }}</p>
-            <p class="card-text">{{ product.description|truncatewords:20 }}</p>
-            <a href="{% url 'product_detail' product.pk %}" class="btn btn-lg btn-primary">Buy Now</a>
-            <form action="{% url 'remove_product' product.pk %}" method="post">
-              {% csrf_token %}
-              <button type="submit" class="btn btn-danger btn-primary">Delete</button>
-            </form>
+{% if query %}
+<a href="{% url 'list_pro' %}" class="btn btn-secondary mb-3">Show All Products</a>
+<h4>Results including the "{{query}}"</h4>
+{% endif %}
+
+<div class="container mt-4">
+  <div class="row">
+    {% for product in products %}
+    <div class="col-md-6 col-sm-12 mb-4">
+      <div class="card h-100 shadow" style="
+        background: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      ">
+
+        <!-- CAROUSEL START -->
+        <div id="carousel{{ product.pk }}" class="carousel slide" data-bs-ride="carousel">
+          <div class="carousel-inner">
+            {% for img in product.images.all %}
+            <div class="carousel-item {% if forloop.first %}active{% endif %}">
+              <img src="{{ img.image.url }}" class="d-block w-100" style="height: 300px; object-fit: contain;">
+            </div>
+            {% empty %}
+            <div class="carousel-item active">
+              <img src="{% static 'image.jpg' %}" class="d-block w-100" style="height: 300px; object-fit: contain;">
+            </div>
+            {% endfor %}
           </div>
+
+          {% if product.images.count > 1 %}
+          <button class="carousel-control-prev" type="button" data-bs-target="#carousel{{ product.pk }}"
+            data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#carousel{{ product.pk }}"
+            data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+          {% endif %}
+        </div>
+        <!-- CAROUSEL END -->
+
+        <div class="card-body">
+          <h4 class="card-title">{{ product.name }}</h4>
+          <p class="card-title">Seller : <a href="/users/{{ product.user }}">{{ product.user }}</a></p>
+          <p class="card-text" style="font-size: 1.2rem;">$ {{ product.price }}</p>
+          <p class="card-text">{{ product.description|truncatewords:20 }}</p>
+          <a href="{% url 'product_detail' product.pk %}" class="btn btn-lg btn-primary">Buy Now</a>
+
+          {% if product.user == request.user %}
+          <form action="{% url 'remove_product' product.pk %}" method="post" class="mt-2">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger  btn-primary">Delete</button>
+          </form>
+          {% endif %}
         </div>
       </div>
-      {% endfor %}
     </div>
+    {% endfor %}
   </div>
+</div>
 
-  <!-- PAGE NUMBERS -->
-  <div class="d-flex justify-content-center my-4">
-    <ul class="pagination mb-0">
-      <li class="page-item disabled"><a class="page-link" href="#">&laquo;</a></li>
-      <li class="page-item active"><a class="page-link" href="#">1</a></li>
-      <li class="page-item"><a class="page-link" href="#">2</a></li>
-      <li class="page-item"><a class="page-link" href="#">3</a></li>
-      <li class="page-item"><a class="page-link" href="#">4</a></li>
-      <li class="page-item"><a class="page-link" href="#">5</a></li>
-      <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
-    </ul>
-  </div>
+<div class="d-flex justify-content-center my-4">
+  <ul class="pagination mb-0">
+    <li class="page-item disabled"><a class="page-link" href="#">&laquo;</a></li>
+    <li class="page-item active"><a class="page-link" href="#">1</a></li>
+    <li class="page-item"><a class="page-link" href="#">2</a></li>
+    <li class="page-item"><a class="page-link" href="#">3</a></li>
+    <li class="page-item"><a class="page-link" href="#">4</a></li>
+    <li class="page-item"><a class="page-link" href="#">5</a></li>
+    <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
+  </ul>
+</div>
 
-  {% endblock %}
+{% endblock %}
