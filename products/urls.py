@@ -5,4 +5,6 @@ urlpatterns = [
     path('add/',views.add_pro_view,name='add_pro'),
     path('remove/',views.remove_pro_view,name='remove_pro'),
     path('list/',views.list_pro_view,name='list_pro'),
+    path('products/remove/<int:pk>/', views.remove_product_view, name='remove_product'),
+    path('products/<int:pk>/', views.product_detail_view, name='product_detail'),
 ]

@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib import messages
 from .models import Product
 from django.db.models import Q
@@ -32,6 +32,24 @@ def add_pro_view(request):
 def remove_pro_view(request):#remove a product from DB
     return render(request,'TODO.html')
 
+def remove_product_view(request, pk):
+    product = get_object_or_404(Product, pk=pk)
+
+    # 🔐 Sadece ürün sahibi silebilmeli
+    if product.user != request.user:
+        messages.error(request, "❌ You can't delete this product.")
+        return redirect('/')
+
+    # ✅ Sadece POST ile silinebilir
+    if request.method == 'POST':
+        product.delete()
+        messages.success(request, "✅ Product deleted successfully.")
+        return redirect('list_pro')  # kendi sayfana göre ayarla
+
+    # ❌ Eğer GET ile geldiyse uyarı ver
+    messages.warning(request, "⚠️ You must send a POST request to delete.")
+    return redirect('list_pro')
+
 @login_required(login_url='login') 
 def list_pro_view(request):#listing products from DB
     query = request.GET.get('q','')
@@ -47,3 +65,7 @@ def list_pro_view(request):#listing products from DB
             products = Product.objects.all()
     
     return render(request,'products/list_product.html',{'products':products,'query':query})
+
+def product_detail_view(request, pk):
+    product = get_object_or_404(Product, pk=pk)
+    return render(request, 'products/product_detail.html', {'product': product})

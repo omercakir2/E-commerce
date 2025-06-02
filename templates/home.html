@@ -29,7 +29,7 @@
   <!-- PRODUCTS -->
   <div class="row">
     {% for product in products %}
-   <div class="col-lg-6 col-md-6 col-sm-12 mb-4">
+    <div class="col-lg-6 col-md-6 col-sm-12 mb-4">
       <div class="card h-100" style="
             background: rgba(255, 255, 255, 0.2);
             backdrop-filter: blur(10px);
@@ -46,7 +46,7 @@
           <p class="card-title">Seller : <a href="/users/{{ product.user }}">{{ product.user }}</a> </p>
           <p class="card-text" style="font-size: 1.2rem;">$ {{ product.price }}</p>
           <p class="card-text">{{ product.description|truncatewords:20 }}</p>
-          <a href="#" class="btn btn-lg btn-primary">Buy Now</a>
+          <a href="{% url 'product_detail' product.pk %}" class="btn btn-lg btn-primary">Buy Now</a>
         </div>
       </div>
     </div>

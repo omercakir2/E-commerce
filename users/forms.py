@@ -27,7 +27,13 @@ class EmailLoginForm(forms.Form):
         email = self.cleaned_data.get('email')
         password = self.cleaned_data.get('password')
 
-        user = authenticate(username=email, password=password)  # Yes, still use "username" param
+        user = authenticate(username=email, password=password)  
+        try:
+            user = CustomUser.objects.get(email=email)
+        except CustomUser.DoesNotExist:
+            raise forms.ValidationError("Invalid email or password.")
+        if not user.is_active:
+            raise forms.ValidationError("Your account is not active. Please verify your email.")
         if user is None:
             raise forms.ValidationError("Invalid email or password")
         self.user = user

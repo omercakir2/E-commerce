@@ -32,15 +32,19 @@ def register_view(request):
             request.session['2fa_code'] = code
             request.session['2fa_email'] = email 
 
-            send_verification_email(
+            result :int = send_verification_email(
                 to_email=email,
                 subject="Your 2FA Verification Code",
                 message=f"Your verification code is: {code}"
             )
 
-            print("SUCCESS!")
-            messages.success(request, "We've send you a 2fa mail!")
-            return redirect('verify_2fa')
+            if result == 1:
+                print("SUCCESS!")
+                messages.success(request, "We've send you a 2fa mail!")
+                return redirect('verify_2fa')
+            else:
+                user.delete()
+                messages.error(request,"There has been an error while sending the verification email! Sorry :(")
         else:
             print("FORM HATALI:", form.errors)
     else:
@@ -75,7 +79,9 @@ def verify_2fa_view(request):
 def login_view(request):
     if request.method == 'POST':
         form = EmailLoginForm(request.POST)
-
+        
+        
+        
         if form.is_valid():
             login(request, form.user)
             messages.success(request, 'Loged in Succesfully!')
