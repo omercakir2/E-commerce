@@ -95,4 +95,45 @@
   <p>Don’t have an account? Register now!</p>
   <a href="/users/register" class="btn btn-outline-primary btn-sm mt-2">Register</a>
 </div>
+<form method="get">
+  <fieldset class="mb-4 p-3 border rounded-3">
+    <legend class="mb-3">💰 Price Filter</legend>
+
+    <!-- Minimum Price -->
+    <input class="form-control me-2" name="q" type="search" placeholder="Search" value="{{ request.GET.q }}">
+
+    <label for="min_price" class="form-label">
+      Minimum Price: <span id="min_price_val">0</span>₺
+    </label>
+    <input type="range" name="min_price" id="min_price" class="form-range" min="0" max="1000" step="10"
+      value="{{ request.GET.min_price|default:0 }}">
+
+    <!-- Maximum Price -->
+    <label for="max_price" class="form-label mt-3">
+      Maximum Price: <span id="max_price_val">1000</span>₺
+    </label>
+    <input type="range" name="max_price" id="max_price" class="form-range" min="0" max="1000" step="10"
+      value="{{ request.GET.max_price|default:1000 }}">
+
+    <button type="submit" class="btn btn-primary mt-3">Filter</button>
+  </fieldset>
+</form>
+
+<script>
+  const minRange = document.getElementById("min_price");
+  const maxRange = document.getElementById("max_price");
+  const minLabel = document.getElementById("min_price_val");
+  const maxLabel = document.getElementById("max_price_val");
+
+  minLabel.textContent = minRange.value;
+  maxLabel.textContent = maxRange.value;
+
+  minRange.addEventListener("input", () => {
+    minLabel.textContent = minRange.value;
+  });
+
+  maxRange.addEventListener("input", () => {
+    maxLabel.textContent = maxRange.value;
+  });
+</script>
 {% endblock %}

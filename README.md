@@ -142,3 +142,7 @@ Then open your browser:
 
 ![remove](sample_pngs/v1.0.8/remove.png)
 
+### 📁 Version v1.0.9
+
+![filtering](sample_pngs/v1.0.9/filtering.png)
+
