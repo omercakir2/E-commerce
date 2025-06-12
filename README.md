@@ -148,5 +148,9 @@ Then open your browser:
 
 ### 📁 Version v1.1.0
 
+![Screenshot 2025-06-12 at 17.19.38](sample_pngs/v1.1.0/Screenshot 2025-06-12 at 17.19.38.png)
+
+![Screenshot 2025-06-12 at 17.19.48](sample_pngs/v1.1.0/Screenshot 2025-06-12 at 17.19.48.png)
+
 ![js](sample_pngs/v1.1.0/js.png)
 

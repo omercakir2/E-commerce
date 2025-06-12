@@ -23,8 +23,9 @@ This is the left panel
         <label for="email" class="form-label">Email address</label>
         <input type="email" name="email" class="form-control" id="email" placeholder="Enter email">
         <small class="form-text text-muted">We'll never share your email.</small>
+        <p id="validationMessage"></p>
       </div>
-
+      <p id="validationMessagePwd" style="color: red;"></p>
       <div class="mb-3">
         <label for="password1" class="form-label">Password</label>
         <input type="password" name="password1" class="form-control" id="password1" placeholder="Password">
@@ -43,13 +44,99 @@ This is the left panel
         </select>
       </div>
 
-      <button type="submit" class="btn btn-primary w-100">Submit</button>
+      <button type="submit" class="btn btn-primary w-100" id="submit" disabled>Submit</button>
       <a href="/users/login">Login if you have an account</a>
     </form>
   </div>
 
 </div>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const emailInput = document.getElementById("email");
+    const passwordInput1 = document.getElementById("password1");
+    const passwordInput2 = document.getElementById("password2");
+    const submitButton = document.getElementById("submit");
+    const messageMail = document.getElementById("validationMessage");
+    const messagePwd = document.getElementById("validationMessagePwd");
 
+    let emailTouched = false;
+    let passwordTouched = false;
+
+    function validateForm() {
+      const email = emailInput.value.trim();
+      const pwd1 = passwordInput1.value;
+      const pwd2 = passwordInput2.value;
+
+      const isEmailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+      const isPasswordValid = pwd1.length >= 8 && pwd1 === pwd2;
+
+      // E-posta mesajı
+      if (emailTouched) {
+        if (!isEmailValid) {
+          messageMail.textContent = "Invalid email address ❌";
+          messageMail.style.color = "red";
+          emailInput.classList.add("is-invalid");
+        } else {
+          messageMail.textContent = "";
+          emailInput.classList.remove("is-invalid");
+        }
+      }
+
+      // Şifre mesajı
+      if (passwordTouched) {
+        if (pwd1.length < 8) {
+          messagePwd.textContent = "Password must have at least 8 characters";
+          passwordInput1.classList.add("is-invalid");
+          passwordInput2.classList.add("is-invalid");
+        } else if (pwd1 !== pwd2) {
+          messagePwd.textContent = "Passwords do not match ❌";
+          passwordInput1.classList.add("is-invalid");
+          passwordInput2.classList.add("is-invalid");
+        } else {
+          messagePwd.textContent = "";
+          passwordInput1.classList.remove("is-invalid");
+          passwordInput2.classList.remove("is-invalid");
+        }
+      }
+
+      // Butonu aktif/pasif yap
+      submitButton.disabled = !(isEmailValid && isPasswordValid);
+    }
+
+    emailInput.addEventListener("input", function () {
+      emailTouched = true;
+      validateForm();
+    });
+
+    emailInput.addEventListener("blur", function () {
+      emailTouched = true;
+      validateForm();
+    });
+
+    passwordInput1.addEventListener("input", function () {
+      passwordTouched = true;
+      validateForm();
+    });
+
+    passwordInput2.addEventListener("input", function () {
+      passwordTouched = true;
+      validateForm();
+    });
+
+    passwordInput1.addEventListener("blur", function () {
+      passwordTouched = true;
+      validateForm();
+    });
+
+    passwordInput2.addEventListener("blur", function () {
+      passwordTouched = true;
+      validateForm();
+    });
+
+    // Sayfa yüklendiğinde butonu kapalı tut
+    submitButton.disabled = true;
+  });
+</script>
 {% endblock %}
 
 {% block right %}

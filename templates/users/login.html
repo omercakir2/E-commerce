@@ -35,7 +35,7 @@ LEFT BLOCK
           <p id="validationMessage"></p>
         </div>
         <div class="mb-3">
-          <label for="password"class="form-label">Password</label>
+          <label for="password" class="form-label">Password</label>
           <div class="input-group">
             <input type="password" name="password" class="form-control" id="password" placeholder="Password">
             <button type="button" class="btn btn-outline-secondary" onclick="toggleType()">👁️</button>
@@ -44,7 +44,7 @@ LEFT BLOCK
 
         </div>
         <p><a href=" {% url 'custom_password_reset' %}">Forgot your password?</a></p>
-        <button type="submit" class="btn btn-primary w-100">Submit</button>
+        <button type="submit" class="btn btn-primary w-100" id="submit">Submit</button>
         <a href="/users/register">Register if you dont have account</a>
       </form>
 
@@ -67,21 +67,35 @@ LEFT BLOCK
   document.addEventListener("DOMContentLoaded", function () {
     const emailInput = document.getElementById("email");
     const passwordInput = document.getElementById("password");
+    const submitButton = document.getElementById("submit");
     const messageMail = document.getElementById("validationMessage");
     const messagePwd = document.getElementById("validationMessagePwd");
 
     let debounceTimer;
 
-    // E-posta doğrulama
+    function validateForm() {
+      const email = emailInput.value.trim();
+      const isEmailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+      const isPasswordValid = passwordInput.value.length >= 8;
+
+      // Enable or disable the button
+      if (isEmailValid && isPasswordValid){
+        submitButton.classList.remove("disabled");
+      }
+      else{
+        submitButton.classList.add("disabled");
+      }
+    }
+
+    // Email validation
     emailInput.addEventListener("input", function () {
       clearTimeout(debounceTimer);
-
       debounceTimer = setTimeout(function () {
         const email = emailInput.value.trim();
         const isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
         if (email === "") {
-          message.textContent = "";
+          messageMail.textContent = "";
           emailInput.classList.remove("is-invalid");
         } else if (isValid) {
           messageMail.textContent = "";
@@ -92,10 +106,12 @@ LEFT BLOCK
           messageMail.style.color = "red";
           emailInput.classList.add("is-invalid");
         }
+
+        validateForm(); // check form validity
       }, 400);
     });
 
-    // Şifre uzunluk kontrolü
+    // Password validation
     passwordInput.addEventListener("input", function () {
       if (passwordInput.value.length < 8) {
         passwordInput.classList.add("is-invalid");
@@ -104,10 +120,14 @@ LEFT BLOCK
         passwordInput.classList.remove("is-invalid");
         messagePwd.textContent = "";
       }
+
+      validateForm(); // check form validity
     });
+
+    // Initialize button state
+    validateForm();
   });
 
-  // Göster/Gizle fonksiyonu
   function toggleType() {
     const input = document.getElementById("password");
     input.type = input.type === "password" ? "text" : "password";

@@ -84,9 +84,8 @@ def login_view(request):
         if form.is_valid():
             login(request, form.user)
             messages.success(request, 'Loged in Succesfully!')
-            email = form.cleaned_data.get('email')
-            password = form.cleaned_data.get('password')
-            print("Email:", email, "Password:", password)
+            # email = form.cleaned_data.get('email')
+            # password = form.cleaned_data.get('password')
             return redirect('/')
     else:
         form = EmailLoginForm()

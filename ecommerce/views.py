@@ -13,3 +13,7 @@ def home(request):
     if max_price:
         products = products.filter(price__lte=max_price)
     return render(request,'home.html',{'products':products})
+
+def custom_404_view(request, exception):
+    print("Custom 404 sayfası tetiklendi!")
+    return render(request, '404.html', status=404)

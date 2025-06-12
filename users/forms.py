@@ -6,6 +6,7 @@ from django.contrib.auth import authenticate
 from django.utils.safestring import mark_safe
 
 
+
 class CustomUserCreationForm(UserCreationForm):
     class Meta:
         model = CustomUser
@@ -31,7 +32,7 @@ class EmailLoginForm(forms.Form):
         try:
             user = CustomUser.objects.get(email=email)
         except CustomUser.DoesNotExist:
-            raise forms.ValidationError("Invalid email or password.")
+            raise forms.ValidationError(mark_safe('There is no account with this email address. You wanna sign up! <a href="/users/register/">Click here</a>'))
         if not user.is_active:
             raise forms.ValidationError("Your account is not active. Please verify your email.")
         if user is None:
