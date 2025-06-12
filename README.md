@@ -146,3 +146,7 @@ Then open your browser:
 
 ![filtering](sample_pngs/v1.0.9/filtering.png)
 
+### 📁 Version v1.1.0
+
+![js](sample_pngs/v1.1.0/js.png)
+
