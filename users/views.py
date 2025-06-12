@@ -11,10 +11,9 @@ from django.contrib.auth.tokens import default_token_generator
 from django.contrib.auth.hashers import make_password ,check_password
 from django.utils.encoding import force_bytes
 from django.conf import settings
-from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.urls import reverse
-
+from django.core.mail import EmailMessage 
 
 
     
@@ -111,6 +110,8 @@ def user_detail_by_email(request,user_mail):
     user = get_object_or_404(CustomUser,email=user_mail)
     return render(request,'users/profile.html',{'user':user})
 
+
+
 def custom_password_reset_request(request):
     if request.method == "POST":
         email = request.POST.get("email")
@@ -121,15 +122,24 @@ def custom_password_reset_request(request):
 
         token = default_token_generator.make_token(user)
         uid = urlsafe_base64_encode(force_bytes(user.pk))
-        reset_url = request.build_absolute_uri(reverse("custom_password_reset_confirm", kwargs={"uidb64": uid, "token": token})
-)
+        reset_url = request.build_absolute_uri(
+            reverse("custom_password_reset_confirm", kwargs={"uidb64": uid, "token": token})
+        )
 
         subject = "Reset your password"
         message = render_to_string("users/password_reset_email.html", {
             "user": user,
             "reset_url": reset_url,
         })
-        send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, [user.email])
+
+        email_message = EmailMessage(
+            subject,
+            message,
+            settings.DEFAULT_FROM_EMAIL,
+            [user.email],
+        )
+        email_message.content_subtype = "html"  # Bu satır HTML formatı olduğunu belirtir
+        email_message.send()
 
         return redirect("password_reset_done")
 
