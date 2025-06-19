@@ -95,7 +95,19 @@ Then open your browser:
 
 ---
 
+## 📸 Screenshots
 
+### 📁 Version v1.1.1
 
+![Photo 1](sample_pngs/v1.1.1/Screenshot 2025-06-19 at 13.37.52.png)
 
+![Photo 2](sample_pngs/v1.1.1/Screenshot 2025-06-19 at 13.37.41.png)
+
+![Photo 3](sample_pngs/v1.1.1/Screenshot 2025-06-19 at 13.37.12.png)
+
+![Photo 4](sample_pngs/v1.1.1/Screenshot 2025-06-19 at 13.39.15.png)
+
+![Photo 5](sample_pngs/v1.1.1/Screenshot 2025-06-19 at 13.39.06.png)
+
+![Photo 6](sample_pngs/v1.1.1/Screenshot 2025-06-19 at 13.38.09.png)
 
