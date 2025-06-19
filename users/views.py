@@ -117,7 +117,7 @@ def custom_password_reset_request(request):
         try:
             user = CustomUser.objects.get(email=email)
         except CustomUser.DoesNotExist:
-            return render(request, "custom_password_reset_request.html", {"error": "No user with that email."})
+            return render(request, "users/custom_password_reset_request.html", {"error": "No user with that email."})
 
         token = default_token_generator.make_token(user)
         uid = urlsafe_base64_encode(force_bytes(user.pk))

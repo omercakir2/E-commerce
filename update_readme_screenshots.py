@@ -10,15 +10,18 @@ readme_path = base_dir / "README.md"
 screenshot_section = "## 📸 Screenshots\n\n"
 
 # Walk through each versioned folder
+latest_version_folder = None
 if screenshots_dir.exists():
     for version_folder in sorted(screenshots_dir.iterdir()):
         if version_folder.is_dir():
-            screenshot_section += f"### 📁 Version {version_folder.name}\n\n"
-            for image_file in sorted(version_folder.glob("*")):
-                if image_file.suffix.lower() in [".png", ".jpg", ".jpeg", ".gif"]:
-                    relative_path = image_file.relative_to(base_dir)
-                    screenshot_section += f"![{image_file.stem}]({relative_path})\n\n"
+            latest_version_folder = version_folder # Keep track of the latest folder
 
+if latest_version_folder:
+    screenshot_section += f"### 📁 Version {latest_version_folder.name}\n\n"
+    for image_file in sorted(latest_version_folder.glob("*")):
+        if image_file.suffix.lower() in [".png", ".jpg", ".jpeg", ".gif"]:
+            relative_path = image_file.relative_to(base_dir)
+            screenshot_section += f"![{image_file.stem}]({relative_path})\n\n"
 # Load existing README
 readme_text = readme_path.read_text()
 

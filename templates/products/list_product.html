@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}
-Home Page
+Your Products
 {% endblock %}
 
 {% block center %}
@@ -42,7 +42,7 @@ Home Page
             </div>
             {% empty %}
             <div class="carousel-item active">
-              <img src="{% static 'image.jpg' %}" class="d-block w-100" style="height: 300px; object-fit: contain;">
+              <img src="{% static 'noimage.png' %}" class="d-block w-100" style="height: 300px; object-fit: contain;">
             </div>
             {% endfor %}
           </div>

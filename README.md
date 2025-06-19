@@ -84,73 +84,17 @@ Then open your browser:
 
 ## 📸 Screenshots
 
-### 📁 Version v1.0.0
+### 📁 Version v1.1.1
 
-![homepage](sample_pngs/v1.0.0/homepage.png)
+![Screenshot 2025-06-19 at 13.37.12](sample_pngs/v1.1.1/Screenshot 2025-06-19 at 13.37.12.png)
 
-### 📁 Version v1.0.1
+![Screenshot 2025-06-19 at 13.37.41](sample_pngs/v1.1.1/Screenshot 2025-06-19 at 13.37.41.png)
 
-![homepage](sample_pngs/v1.0.1/homepage.png)
+![Screenshot 2025-06-19 at 13.37.52](sample_pngs/v1.1.1/Screenshot 2025-06-19 at 13.37.52.png)
 
-![register](sample_pngs/v1.0.1/register.png)
+![Screenshot 2025-06-19 at 13.38.09](sample_pngs/v1.1.1/Screenshot 2025-06-19 at 13.38.09.png)
 
-### 📁 Version v1.0.2
+![Screenshot 2025-06-19 at 13.39.06](sample_pngs/v1.1.1/Screenshot 2025-06-19 at 13.39.06.png)
 
-![add](sample_pngs/v1.0.2/add.png)
-
-![listing](sample_pngs/v1.0.2/listing.png)
-
-### 📁 Version v1.0.3
-
-![home](sample_pngs/v1.0.3/home.png)
-
-![login](sample_pngs/v1.0.3/login.png)
-
-### 📁 Version v1.0.4
-
-![profile](sample_pngs/v1.0.4/profile.png)
-
-![search](sample_pngs/v1.0.4/search.png)
-
-### 📁 Version v1.0.5
-
-![2fa](sample_pngs/v1.0.5/2fa.png)
-
-![home](sample_pngs/v1.0.5/home.png)
-
-![mail](sample_pngs/v1.0.5/mail.png)
-
-### 📁 Version v1.0.6
-
-![forgotpassword](sample_pngs/v1.0.6/forgotpassword.png)
-
-![home](sample_pngs/v1.0.6/home.png)
-
-![loginpage](sample_pngs/v1.0.6/loginpage.png)
-
-![mail](sample_pngs/v1.0.6/mail.png)
-
-![passwordreset](sample_pngs/v1.0.6/passwordreset.png)
-
-### 📁 Version v1.0.7
-
-![home](sample_pngs/v1.0.7/home.png)
-
-### 📁 Version v1.0.8
-
-![detail](sample_pngs/v1.0.8/detail.png)
-
-![remove](sample_pngs/v1.0.8/remove.png)
-
-### 📁 Version v1.0.9
-
-![filtering](sample_pngs/v1.0.9/filtering.png)
-
-### 📁 Version v1.1.0
-
-![Screenshot 2025-06-12 at 17.19.38](sample_pngs/v1.1.0/Screenshot 2025-06-12 at 17.19.38.png)
-
-![Screenshot 2025-06-12 at 17.19.48](sample_pngs/v1.1.0/Screenshot 2025-06-12 at 17.19.48.png)
-
-![js](sample_pngs/v1.1.0/js.png)
+![Screenshot 2025-06-19 at 13.39.15](sample_pngs/v1.1.1/Screenshot 2025-06-19 at 13.39.15.png)
 

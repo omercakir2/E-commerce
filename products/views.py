@@ -60,11 +60,11 @@ def list_pro_view(request):#listing products from DB
     query = request.GET.get('q','')
     if request.user.is_authenticated:
         if query:
-            products = Product.objects.filter(Q(name__icontains=query)|Q(description__icontains=query)|Q(user=request.user))
+            products = Product.objects.filter(Q(name__icontains=query)|Q(description__icontains=query))
         else:
             products = Product.objects.filter(Q(user=request.user))
     else:
-        if query:
+        if query: # This part is for unauthenticated users
             products = Product.objects.filter(Q(name__icontains=query)|Q(description__icontains=query))
         else:
             products = Product.objects.all()
