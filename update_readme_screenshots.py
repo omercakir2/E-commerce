@@ -32,9 +32,8 @@ if latest_version_folder:
 # 📝 README dosyasını oku
 readme_text = readme_path.read_text()
 
-# 📌 Eski screenshot bölümü varsa temizle
-if "## 📸 Screenshots" in readme_text:
-    readme_text = re.split(r"## 📸 Screenshots", readme_text)[0].strip()
+# 📌 Eğer en başta zaten eski screenshot varsa, onu sil
+readme_text = re.sub(r"(?s)^## 📸 Screenshots.*?\n(?=\S)", "", readme_text).strip()
 
 # 🚀 Yeni screenshot bölümünü en üste ekle
 updated_readme = screenshot_section.strip() + "\n\n" + readme_text.strip()
@@ -42,4 +41,4 @@ updated_readme = screenshot_section.strip() + "\n\n" + readme_text.strip()
 # 💾 README'yi güncelle
 readme_path.write_text(updated_readme)
 
-print("✅ README.md updated successfully with screenshots at the top.")
+print("✅ README.md updated successfully with screenshots at the top, rest untouched.")
