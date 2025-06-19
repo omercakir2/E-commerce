@@ -1,3 +1,17 @@
+### 📁 Lastest Version v1.1.1
+
+![Screenshot 2025-06-19 at 13.37.12](sample_pngs/v1.1.1/Screenshot 2025-06-19 at 13.37.12.png)
+
+![Screenshot 2025-06-19 at 13.37.41](sample_pngs/v1.1.1/Screenshot 2025-06-19 at 13.37.41.png)
+
+![Screenshot 2025-06-19 at 13.37.52](sample_pngs/v1.1.1/Screenshot 2025-06-19 at 13.37.52.png)
+
+![Screenshot 2025-06-19 at 13.38.09](sample_pngs/v1.1.1/Screenshot 2025-06-19 at 13.38.09.png)
+
+![Screenshot 2025-06-19 at 13.39.06](sample_pngs/v1.1.1/Screenshot 2025-06-19 at 13.39.06.png)
+
+![Screenshot 2025-06-19 at 13.39.15](sample_pngs/v1.1.1/Screenshot 2025-06-19 at 13.39.15.png)
+
 # 🛒 Django E-Commerce Project
 
 Welcome to my e-commerce web app built with **Django**!  
@@ -11,7 +25,7 @@ This is a solo learning project where I’m developing a fully functional online
 - ✅ User Registration & Login System
 - ✅ Session-based Logout
 - ✅ Product Listing with Images
-- ✅ Product Add/Edit/Delete via Admin Panel
+- ✅ Product Add/Delete
 - ✅ Basic Bootstrap UI
 
 ---
@@ -55,8 +69,7 @@ This project is not just about building an e-commerce site — it's part of my l
 Clone the repo and set it up in your local environment:
 
 ```bash
-git clone https://github.com/yourusername/yourrepo.git
-cd yourrepo
+git clone https://github.com/omercakir2/E-commerce.git
 python -m venv venv
 source venv/bin/activate        # Windows: venv\Scripts\activate
 pip install -r requirements.txt
@@ -82,19 +95,7 @@ Then open your browser:
 
 ---
 
-## 📸 Screenshots
 
-### 📁 Version v1.1.1
 
-![Screenshot 2025-06-19 at 13.37.12](sample_pngs/v1.1.1/Screenshot 2025-06-19 at 13.37.12.png)
 
-![Screenshot 2025-06-19 at 13.37.41](sample_pngs/v1.1.1/Screenshot 2025-06-19 at 13.37.41.png)
-
-![Screenshot 2025-06-19 at 13.37.52](sample_pngs/v1.1.1/Screenshot 2025-06-19 at 13.37.52.png)
-
-![Screenshot 2025-06-19 at 13.38.09](sample_pngs/v1.1.1/Screenshot 2025-06-19 at 13.38.09.png)
-
-![Screenshot 2025-06-19 at 13.39.06](sample_pngs/v1.1.1/Screenshot 2025-06-19 at 13.39.06.png)
-
-![Screenshot 2025-06-19 at 13.39.15](sample_pngs/v1.1.1/Screenshot 2025-06-19 at 13.39.15.png)
 
