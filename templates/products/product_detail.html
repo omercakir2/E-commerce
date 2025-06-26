@@ -37,8 +37,16 @@
         <h2>{{ product.name }}</h2>
         <p><strong>Price:</strong> ${{ product.price }}</p>
         <p><strong>Seller:</strong> <a href="/users/{{ product.user }}">{{ product.user }}</a></p>
+        <p class="card-text" style="font-size: 1.2rem;">Stock : {{ product.stock }}</p>
+
+        <form method="POST">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-primary btn-success" name="action" value="increase-stock">Increase Stock</button>
+            <button type="submit" class="btn btn-primary btn-danger" name="action" value="decrease-stock">Decrease Stock</button>
+        </form>
+
         <p>{{ product.description }}</p>
-        <a href="#" class="btn btn-primary btn-lg">Buy Now</a>
+        <a href="#" class="btn btn-primary btn-success">Save Changes</a>
     </div>
 </div>
 </div>

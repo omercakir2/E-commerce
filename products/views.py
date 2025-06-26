@@ -73,4 +73,40 @@ def list_pro_view(request):#listing products from DB
 
 def product_detail_view(request, pk):
     product = get_object_or_404(Product, pk=pk)
+
+    if request.method == "POST":
+        action = request.POST.get("action")
+
+        if action == "increase-stock":
+            product.stock += 1
+            product.save()
+        elif action == "decrease-stock":
+            if product.stock > 0:
+                product.stock -= 1
+                product.save()
+
+        # Reload the updated product instance
+        product.refresh_from_db()
+
+    print("STOCK:" + str(product.stock))
     return render(request, 'products/product_detail.html', {'product': product})
+
+
+def add_stock_view(pk):
+    product = get_object_or_404(Product, pk=pk)
+
+    if product.stock >= 0:
+        product.stock += 1
+        product.save()
+        print("ARTTIRDIM")
+
+
+def remove_stock_view(pk):
+    product = get_object_or_404(Product, pk=pk)
+
+    if product.stock > 0:
+        product.stock -= 1
+        product.save()
+        print("ARTTIRDIM")
+
+    

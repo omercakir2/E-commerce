@@ -66,8 +66,9 @@ Your Products
           <h4 class="card-title">{{ product.name }}</h4>
           <p class="card-title">Seller : <a href="/users/{{ product.user }}">{{ product.user }}</a></p>
           <p class="card-text" style="font-size: 1.2rem;">$ {{ product.price }}</p>
+          <p class="card-text" style="font-size: 1.2rem;">Stock : {{ product.stock }}</p>
           <p class="card-text">{{ product.description|truncatewords:20 }}</p>
-          <a href="{% url 'product_detail' product.pk %}" class="btn btn-lg btn-primary">Buy Now</a>
+          <a href="{% url 'product_detail' product.pk %}" class="btn btn-lg btn-primary">Change Details</a>
 
           {% if product.user == request.user %}
           <form action="{% url 'remove_product' product.pk %}" method="post" class="mt-2">
