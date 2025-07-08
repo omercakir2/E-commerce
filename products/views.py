@@ -84,11 +84,20 @@ def product_detail_view(request, pk):
             if product.stock > 0:
                 product.stock -= 1
                 product.save()
+        elif action == "set-stock":
+            stock = int(request.POST.get('stock'))
+            if stock >= 0:
+                product.stock = stock
+                product.save()
+                messages.success(request,"Successfully changed!")
+            else:
+                messages.warning(request,"Stock cannot be less then 0")
+                
 
         # Reload the updated product instance
         product.refresh_from_db()
 
-    print("STOCK:" + str(product.stock))
+
     return render(request, 'products/product_detail.html', {'product': product})
 
 
@@ -98,7 +107,7 @@ def add_stock_view(pk):
     if product.stock >= 0:
         product.stock += 1
         product.save()
-        print("ARTTIRDIM")
+
 
 
 def remove_stock_view(pk):
@@ -107,6 +116,6 @@ def remove_stock_view(pk):
     if product.stock > 0:
         product.stock -= 1
         product.save()
-        print("ARTTIRDIM")
+
 
     

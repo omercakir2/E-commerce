@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}
+My Card
+{% endblock title %}
+
+{% block center %}
+<h2>See your card here!</h2>
+<table class="table table-hover table-striped table-bordered">
+    <thead>
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Price</th>
+        </tr>
+    </thead>
+    {% for item in items %}
+    <tbody>
+        <tr class="table-active" onclick="window.location.href='/users/{{ user.email }} '" style="cursor: pointer;">
+            <th scope="row">{{ item.product.name }}</th>
+            <td>{{ item.product.price }} $</td>
+            {% endfor %}
+
+        </tr>
+        <tr>
+            <th scope="row"></th>
+            <td>Total:{{total}} $</td>
+        </tr>
+    </tbody>
+</table>
+{% endblock center %}

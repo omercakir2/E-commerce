@@ -38,16 +38,30 @@
         <p><strong>Price:</strong> ${{ product.price }}</p>
         <p><strong>Seller:</strong> <a href="/users/{{ product.user }}">{{ product.user }}</a></p>
         <p class="card-text" style="font-size: 1.2rem;">Stock : {{ product.stock }}</p>
-
+        <p>{{ product.description }}</p>
+        
+        {% if request.user.is_authenticated and request.user == product.user%}
         <form method="POST">
             {% csrf_token %}
-            <button type="submit" class="btn btn-primary btn-success" name="action" value="increase-stock">Increase Stock</button>
-            <button type="submit" class="btn btn-primary btn-danger" name="action" value="decrease-stock">Decrease Stock</button>
-        </form>
+            <button type="submit" class="btn btn-primary btn-success" name="action" value="increase-stock">Increase
+                Stock</button>
+            <button type="submit" class="btn btn-primary btn-danger" name="action" value="decrease-stock">Decrease
+                Stock</button>
+                <div class="mb-3">
+                    <label for="stock" class="form-label">Set stock</label>
+                    <input type="number" name="stock" class="form-control" id="stock" placeholder="Enter a non positive number">
+                    <p id="validationMessage"></p>
+                    <button type="submit" class="btn btn-primary w-100" id="submit" name="action" value="set-stock">Change</button>
+                </div>
+        </form method="POST">
+        
+        {% endif %}
 
-        <p>{{ product.description }}</p>
-        <a href="#" class="btn btn-primary btn-success">Save Changes</a>
+
     </div>
 </div>
 </div>
+<script>
+    
+</script>
 {% endblock %}

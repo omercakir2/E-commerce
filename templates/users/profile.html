@@ -3,9 +3,12 @@
 
 {% block title %}Profile{% endblock %}
 
+{% block layout_style %}
+style="--grid-columns: 1fr 10fr 1fr;"  {# Burada istediğin gibi genişlikleri ayarlayabilirsin #}
+{% endblock %}
 
 {% block left %}
-    Here is the left block
+Here is the left block
 {% endblock left %}
 
 {% block center %}
@@ -34,7 +37,7 @@
                     {% endif %}
                     <p></p>
                     <div class="mt-4">
-                        {% if request.user.is_authenticated %}
+                        {% if request.user.is_authenticated and request.user == user %}
 
                         <a href="{% url 'logout' %}" class="btn btn-outline-danger">Logout</a>
                         {% endif %}
@@ -43,6 +46,25 @@
                 <div class="card-footer text-muted text-end">
                     Last Login : {{ user.last_login|date:"F d, Y" }}
                 </div>
+                <div class="mt-4">
+                {% if products %}
+                    <p>See products of this user</p>
+                    {% for product in products %}
+                    <a href="{% url 'product_detail' product.id %}">
+
+                        <button class="btn btn-secondary mt-3">
+                            <!-- <a href="#">{{ product.name }}</a> -->
+                            {{product.name}}
+                            ${{product.price}}
+                        </button>
+                        <br>
+                    </a>
+                    {% endfor %}
+                {% else %}
+                    <p>This user has no product!</p>
+                {% endif %}
+                
+                </div>
             </div>
         </div>
     </div>
@@ -50,5 +72,5 @@
 {% endblock %}
 
 {% block right %}
-    Here is the right block
+Here is the right block
 {% endblock right %}
