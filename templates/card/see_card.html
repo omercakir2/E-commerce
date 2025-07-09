@@ -15,10 +15,11 @@ My Card
     </thead>
     {% for item in items %}
     <tbody>
-        <tr class="table-active" onclick="window.location.href='/users/{{ user.email }} '" style="cursor: pointer;">
+        <tr class="table-active" style="cursor: pointer;">
             <th scope="row">{{ item.product.name }}</th>
             <td>{{ item.product.price }} $</td>
-            {% endfor %}
+            <td><a href="{% url 'remove_from_card' item.product.id item.user.id %}">X</a></td>
+    {% endfor %}
 
         </tr>
         <tr>
@@ -27,4 +28,6 @@ My Card
         </tr>
     </tbody>
 </table>
+<a href="{% url 'clear_card' %}" class="btn btn-info">Order</a>
+
 {% endblock center %}

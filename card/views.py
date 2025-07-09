@@ -42,4 +42,25 @@ def see_card(request):
     
     return render(request,'card/see_card.html',{'items':user_card_items,'total':total})
 
+@login_required(login_url='login')  
+def remove_from_card(request,productid,userid):
+    product =get_object_or_404(Product , pk = productid)
     
+    if product and request.user.id==userid:
+        card_item = Card.objects.filter(Q(product=productid)&Q(user=userid))
+        if card_item:
+            print(f"You tried to delete the card object : {card_item}")
+            card_item[0].delete()
+        messages.success(request,"Removed succesfully!")
+    else:
+        messages.warning(request,"Cannot remove!!!")
+
+    return redirect('see_card')
+
+@login_required(login_url='login')
+def clear_card(request):
+    card_items = Card.objects.filter(Q(user=request.user.id))
+    if card_items:
+        card_items.delete()
+        messages.success(request,"Your order has been succesfully reached to the seller")
+    return redirect('see_card')
