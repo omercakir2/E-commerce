@@ -50,6 +50,10 @@ def remove_from_card(request,productid,userid):
         card_item = Card.objects.filter(Q(product=productid)&Q(user=userid))
         if card_item:
             print(f"You tried to delete the card object : {card_item}")
+            product = get_object_or_404(Product,pk=card_item[0].product.id)
+            if product:
+                product.stock += 1
+                product.save()
             card_item[0].delete()
         messages.success(request,"Removed succesfully!")
     else:

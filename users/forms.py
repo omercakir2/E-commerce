@@ -24,18 +24,15 @@ class EmailLoginForm(forms.Form):
     email = forms.EmailField()
     password = forms.CharField(widget=forms.PasswordInput)
 
-    def clean(self):
-        email = self.cleaned_data.get('email')
-        password = self.cleaned_data.get('password')
 
-        user = authenticate(username=email, password=password)  
-        try:
-            user = CustomUser.objects.get(email=email)
-        except CustomUser.DoesNotExist:
-            raise forms.ValidationError(mark_safe('There is no account with this email address. You wanna sign up! <a href="/users/register/">Click here</a>'))
-        if not user.is_active:
-            raise forms.ValidationError("Your account is not active. Please verify your email.")
-        if user is None:
+    def clean(self):
+        email = self.cleaned_data.get('email')# getting email from dictionary called cleaned_data
+        password = self.cleaned_data.get('password')
+        self.user = authenticate(username=email, password=password)  
+        print(self.user)
+        if self.user:
+            if not self.user.is_active:
+                raise forms.ValidationError("Your account is not active. Please verify your email.")
+            return self.cleaned_data
+        else:
             raise forms.ValidationError("Invalid email or password")
-        self.user = user
-        return self.cleaned_data

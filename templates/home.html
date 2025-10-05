@@ -70,7 +70,11 @@
           <p class="card-text" style="font-size: 1.2rem;">{{ product.price }} $ </p>
           <p class="card-text" style="font-size: 1.5rem;">Stock : {{ product.stock}}</p>
           <p class="card-text">{{ product.description|truncatewords:20 }}</p>
-          <a href="{% url 'add_to_card' product.id %}" class="btn btn-lg btn-primary">Add to Card</a>
+          {% if product.stock < 1 %} 
+              <a href="#" class="btn btn-lg btn-primary disabled">No stock!</a>
+          {% else %}
+              <a href="{% url 'add_to_card' product.id %}" class="btn btn-lg btn-primary">Add to Card</a>
+          {% endif %}
         </div>
       </div>
     </div>

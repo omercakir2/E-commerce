@@ -79,14 +79,10 @@ def verify_2fa_view(request):
 def login_view(request):
     if request.method == 'POST':
         form = EmailLoginForm(request.POST)
-        
-        
-        
         if form.is_valid():
+
             login(request, form.user)
             messages.success(request, 'Loged in Succesfully!')
-            # email = form.cleaned_data.get('email')
-            # password = form.cleaned_data.get('password')
             return redirect('/')
     else:
         form = EmailLoginForm()
