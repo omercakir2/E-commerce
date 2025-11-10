@@ -73,7 +73,7 @@ Your Products
           {% if product.user == request.user %}
           <form action="{% url 'remove_product' product.pk %}" method="post" class="mt-2">
             {% csrf_token %}
-            <button type="submit" class="btn btn-danger  btn-primary">Delete</button>
+            <button type="submit" class="btn btn-danger  btn-primary deleteBtn" >Delete</button>
           </form>
           {% endif %}
         </div>
@@ -94,5 +94,32 @@ Your Products
     <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
   </ul>
 </div>
+
+
+<!-- Pagination, etc. -->
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+document.querySelectorAll(".deleteBtn").forEach((btn) => {
+  btn.addEventListener("click", function (e) {
+    e.preventDefault(); // stop the form from submitting immediately
+
+    const form = this.closest("form"); // get the form around this button
+
+    Swal.fire({
+      title: "Are you sure?",
+      text: "This action cannot be undone!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Yes, delete it!",
+      cancelButtonText: "Cancel"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        form.submit(); // submit the form only if user confirmed
+      }
+    });
+  });
+});
+</script>
 
 {% endblock %}
